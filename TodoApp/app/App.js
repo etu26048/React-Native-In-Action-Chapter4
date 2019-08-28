@@ -1,14 +1,32 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
+import getStyleSheet from './Styles';
 
 export default class App extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      darkTheme: false,
+    };
+    this.toggleTheme = this.toggleTheme.bind(this);
+  }
+
+  toggleTheme() {
+    this.setState({ darkTheme: !this.state.darkTheme });
+  }
+
   render() {
+    const styles = getStyleSheet(this.state.darkTheme);
+    const backgroundColor = StyleSheet.flatten(styles.container).backgroundColor;
+
     return (
-      <View style={{ marginLeft: 20, marginTop: 20 }}>
-        <Text style={{ fontSize: 18, color: 'red' }}>Some Text</Text>
+      <View style={styles.container}>
+        <View style={styles.box}>
+          <Button title={backgroundColor} onPress={this.toggleTheme} />
+        </View>
       </View>
-    )
+    );
   }
 }
 
